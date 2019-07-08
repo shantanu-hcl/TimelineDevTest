@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for C:\xampp\htdocs\Timeline\application</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href=".css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href=".css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href=".css/style.css" rel="stylesheet" type="text/css">
+  <link href=".css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">C:\xampp\htdocs\Timeline\application</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="controllers/Timeline.php.html#8">Timeline</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/Welcome.php.html#4">Welcome</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Client.php.html#4">Client</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#15">Curl</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/ProposalSugarClient.php.html#4">ProposalSugarClient</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/SugarClient.php.html#13">SugarClient</a></td><td class="text-right">71%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="libraries/Curl.php.html#15">Curl</a></td><td class="text-right">2756</td></tr>
+       <tr><td><a href="libraries/ProposalSugarClient.php.html#4">ProposalSugarClient</a></td><td class="text-right">272</td></tr>
+       <tr><td><a href="controllers/Timeline.php.html#8">Timeline</a></td><td class="text-right">240</td></tr>
+       <tr><td><a href="libraries/SugarClient.php.html#13">SugarClient</a></td><td class="text-right">33</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="controllers/Timeline.php.html#10"><abbr title="Timeline::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#288"><abbr title="Curl::is_enabled">is_enabled</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#173"><abbr title="Curl::proxy">proxy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#179"><abbr title="Curl::proxy_login">proxy_login</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#184"><abbr title="Curl::ssl">ssl</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#202"><abbr title="Curl::options">options</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#213"><abbr title="Curl::option">option</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#223"><abbr title="Curl::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#236"><abbr title="Curl::execute">execute</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#292"><abbr title="Curl::debug">debug</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#162"><abbr title="Curl::http_method">http_method</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#312"><abbr title="Curl::debug_request">debug_request</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#318"><abbr title="Curl::set_defaults">set_defaults</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#328"><abbr title="Curl::getBaseUrlFromConfig">getBaseUrlFromConfig</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/ProposalSugarClient.php.html#11"><abbr title="ProposalSugarClient::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/ProposalSugarClient.php.html#16"><abbr title="ProposalSugarClient::getHttpHeaders">getHttpHeaders</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/ProposalSugarClient.php.html#56"><abbr title="ProposalSugarClient::findProposalByMaconomyNumber">findProposalByMaconomyNumber</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/ProposalSugarClient.php.html#129"><abbr title="ProposalSugarClient::updateProposalByID">updateProposalByID</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#167"><abbr title="Curl::http_login">http_login</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#157"><abbr title="Curl::http_header">http_header</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/Timeline.php.html#23"><abbr title="Timeline::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Client.php.html#27"><abbr title="Client::proposalByID">proposalByID</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/Timeline.php.html#37"><abbr title="Timeline::job_detail">job_detail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/Timeline.php.html#44"><abbr title="Timeline::update_timeline">update_timeline</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/Timeline.php.html#85"><abbr title="Timeline::proposalRecord">proposalRecord</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/Timeline.php.html#92"><abbr title="Timeline::proposal_detail">proposal_detail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="controllers/Welcome.php.html#21"><abbr title="Welcome::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Client.php.html#10"><abbr title="Client::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Client.php.html#16"><abbr title="Client::maconomyNumber">maconomyNumber</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#25"><abbr title="Curl::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#148"><abbr title="Curl::set_cookies">set_cookies</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#35"><abbr title="Curl::__call">__call</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#49"><abbr title="Curl::_simple_call">_simple_call</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#67"><abbr title="Curl::simple_ftp_get">simple_ftp_get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#95"><abbr title="Curl::post">post</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#108"><abbr title="Curl::put">put</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#122"><abbr title="Curl::patch">patch</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#136"><abbr title="Curl::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="libraries/SugarClient.php.html#208"><abbr title="SugarClient::__refresh_token">__refresh_token</abbr></a></td><td class="text-right">8%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="libraries/Curl.php.html#236"><abbr title="Curl::execute">execute</abbr></a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="controllers/Timeline.php.html#44"><abbr title="Timeline::update_timeline">update_timeline</abbr></a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="libraries/SugarClient.php.html#208"><abbr title="SugarClient::__refresh_token">__refresh_token</abbr></a></td><td class="text-right">44</td></tr>
+       <tr><td><a href="libraries/ProposalSugarClient.php.html#56"><abbr title="ProposalSugarClient::findProposalByMaconomyNumber">findProposalByMaconomyNumber</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="libraries/ProposalSugarClient.php.html#16"><abbr title="ProposalSugarClient::getHttpHeaders">getHttpHeaders</abbr></a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#67"><abbr title="Curl::simple_ftp_get">simple_ftp_get</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#25"><abbr title="Curl::__construct">__construct</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="libraries/ProposalSugarClient.php.html#129"><abbr title="ProposalSugarClient::updateProposalByID">updateProposalByID</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="controllers/Timeline.php.html#92"><abbr title="Timeline::proposal_detail">proposal_detail</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#184"><abbr title="Curl::ssl">ssl</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#49"><abbr title="Curl::_simple_call">_simple_call</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#213"><abbr title="Curl::option">option</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#35"><abbr title="Curl::__call">__call</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#292"><abbr title="Curl::debug">debug</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#202"><abbr title="Curl::options">options</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#223"><abbr title="Curl::create">create</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#148"><abbr title="Curl::set_cookies">set_cookies</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#136"><abbr title="Curl::delete">delete</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#122"><abbr title="Curl::patch">patch</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#108"><abbr title="Curl::put">put</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="libraries/Curl.php.html#157"><abbr title="Curl::http_header">http_header</abbr></a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 6.1.4</a> using <a href="https://secure.php.net/" target="_top">PHP 7.1.11</a> with <a href="https://xdebug.org/">Xdebug 2.7.2</a> and <a href="https://phpunit.de/">PHPUnit 7.5.13</a> at Thu Jul 4 6:04:20 UTC 2019.</small>
+    </p>
+   </footer>
+  </div>
+  <script src=".js/jquery.min.js" type="text/javascript"></script>
+  <script src=".js/d3.min.js" type="text/javascript"></script>
+  <script src=".js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([5,0,0,0,0,0,0,0,1,0,0,2], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([38,1,0,0,0,0,0,0,0,0,4,3], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,15,"<a href=\"controllers\/Timeline.php.html#8\">Timeline<\/a>"],[0,1,"<a href=\"controllers\/Welcome.php.html#4\">Welcome<\/a>"],[0,3,"<a href=\"libraries\/Client.php.html#4\">Client<\/a>"],[0,52,"<a href=\"libraries\/Curl.php.html#15\">Curl<\/a>"],[0,16,"<a href=\"libraries\/ProposalSugarClient.php.html#4\">ProposalSugarClient<\/a>"],[71.09375,22,"<a href=\"libraries\/SugarClient.php.html#13\">SugarClient<\/a>"],[100,0,"<a href=\"libraries\/SugarClientException.php.html#5\">Unauthenticate_SugarClientException<\/a>"],[100,0,"<a href=\"libraries\/SugarClientException.php.html#8\">Failauthenticate_SugarClientException<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"controllers\/Timeline.php.html#10\">Timeline::__construct<\/a>"],[0,1,"<a href=\"controllers\/Timeline.php.html#23\">Timeline::index<\/a>"],[0,1,"<a href=\"controllers\/Timeline.php.html#37\">Timeline::job_detail<\/a>"],[0,8,"<a href=\"controllers\/Timeline.php.html#44\">Timeline::update_timeline<\/a>"],[0,1,"<a href=\"controllers\/Timeline.php.html#85\">Timeline::proposalRecord<\/a>"],[0,3,"<a href=\"controllers\/Timeline.php.html#92\">Timeline::proposal_detail<\/a>"],[0,1,"<a href=\"controllers\/Welcome.php.html#21\">Welcome::index<\/a>"],[0,1,"<a href=\"libraries\/Client.php.html#10\">Client::__construct<\/a>"],[0,1,"<a href=\"libraries\/Client.php.html#16\">Client::maconomyNumber<\/a>"],[0,1,"<a href=\"libraries\/Client.php.html#27\">Client::proposalByID<\/a>"],[0,3,"<a href=\"libraries\/Curl.php.html#25\">Curl::__construct<\/a>"],[0,2,"<a href=\"libraries\/Curl.php.html#35\">Curl::__call<\/a>"],[0,3,"<a href=\"libraries\/Curl.php.html#49\">Curl::_simple_call<\/a>"],[0,4,"<a href=\"libraries\/Curl.php.html#67\">Curl::simple_ftp_get<\/a>"],[0,1,"<a href=\"libraries\/Curl.php.html#95\">Curl::post<\/a>"],[0,2,"<a href=\"libraries\/Curl.php.html#108\">Curl::put<\/a>"],[0,2,"<a href=\"libraries\/Curl.php.html#122\">Curl::patch<\/a>"],[0,2,"<a href=\"libraries\/Curl.php.html#136\">Curl::delete<\/a>"],[0,2,"<a href=\"libraries\/Curl.php.html#148\">Curl::set_cookies<\/a>"],[0,2,"<a href=\"libraries\/Curl.php.html#157\">Curl::http_header<\/a>"],[0,1,"<a href=\"libraries\/Curl.php.html#162\">Curl::http_method<\/a>"],[0,1,"<a href=\"libraries\/Curl.php.html#167\">Curl::http_login<\/a>"],[0,1,"<a href=\"libraries\/Curl.php.html#173\">Curl::proxy<\/a>"],[0,1,"<a href=\"libraries\/Curl.php.html#179\">Curl::proxy_login<\/a>"],[0,3,"<a href=\"libraries\/Curl.php.html#184\">Curl::ssl<\/a>"],[0,2,"<a href=\"libraries\/Curl.php.html#202\">Curl::options<\/a>"],[0,3,"<a href=\"libraries\/Curl.php.html#213\">Curl::option<\/a>"],[0,2,"<a href=\"libraries\/Curl.php.html#223\">Curl::create<\/a>"],[0,9,"<a href=\"libraries\/Curl.php.html#236\">Curl::execute<\/a>"],[0,1,"<a href=\"libraries\/Curl.php.html#288\">Curl::is_enabled<\/a>"],[0,2,"<a href=\"libraries\/Curl.php.html#292\">Curl::debug<\/a>"],[0,1,"<a href=\"libraries\/Curl.php.html#312\">Curl::debug_request<\/a>"],[0,1,"<a href=\"libraries\/Curl.php.html#318\">Curl::set_defaults<\/a>"],[0,1,"<a href=\"libraries\/Curl.php.html#328\">Curl::getBaseUrlFromConfig<\/a>"],[0,1,"<a href=\"libraries\/ProposalSugarClient.php.html#11\">ProposalSugarClient::__construct<\/a>"],[0,6,"<a href=\"libraries\/ProposalSugarClient.php.html#16\">ProposalSugarClient::getHttpHeaders<\/a>"],[0,6,"<a href=\"libraries\/ProposalSugarClient.php.html#56\">ProposalSugarClient::findProposalByMaconomyNumber<\/a>"],[0,3,"<a href=\"libraries\/ProposalSugarClient.php.html#129\">ProposalSugarClient::updateProposalByID<\/a>"],[100,1,"<a href=\"libraries\/SugarClient.php.html#27\">SugarClient::__construct<\/a>"],[100,1,"<a href=\"libraries\/SugarClient.php.html#39\">SugarClient::connectToDb<\/a>"],[100,1,"<a href=\"libraries\/SugarClient.php.html#54\">SugarClient::getBaseUrlFromConfig<\/a>"],[92.3076923076923,2,"<a href=\"libraries\/SugarClient.php.html#66\">SugarClient::__load_user_token_from_aws<\/a>"],[94.44444444444444,4,"<a href=\"libraries\/SugarClient.php.html#101\">SugarClient::authenticate<\/a>"],[95,2,"<a href=\"libraries\/SugarClient.php.html#165\">SugarClient::insertItemToDB<\/a>"],[8.571428571428571,7,"<a href=\"libraries\/SugarClient.php.html#208\">SugarClient::__refresh_token<\/a>"],[93.33333333333333,4,"<a href=\"libraries\/SugarClient.php.html#286\">SugarClient::curlMethod<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
