@@ -44,7 +44,7 @@ class ProposalSugarClient extends SugarClient
 				$authTokensArray = json_decode($getAccessTokenFromLogin);
 				if ($authTokensArray->status == 'Fail') {
 						$response = $this->authException();
-						return json_encode($response);
+						return $response;
 					
 				} else {
 					$accessToken = $authTokensArray->access_token;
@@ -52,7 +52,7 @@ class ProposalSugarClient extends SugarClient
 				}	
 			} elseif (isset($getAccessTokenExpiry['status']) && $getAccessTokenExpiry['status']=='Fail') {
 				$response = $this->SugarException();
-				return json_encode($response);
+				return $response;
 			}
 			
 			//-- End Access Token---
@@ -105,7 +105,7 @@ class ProposalSugarClient extends SugarClient
 		$httpHeaderResponseArr = json_decode($httpHeaderResponse);
 		if(isset($httpHeaderResponseArr->status) && $httpHeaderResponseArr->status == 'Fail'){
 				$response = $this->SugarException();	
-				return json_encode($response);
+				return $response;
 		} else {
 			$httpHeader = $httpHeaderResponseArr->httpHeader;
 			$refreshToken = $httpHeaderResponseArr->refreshToken;
@@ -120,7 +120,7 @@ class ProposalSugarClient extends SugarClient
 			} elseif(empty($proposalJSON->records)) {
 				
 				$response = $this->FetchRecordException();	
-				return json_encode($response);
+				return $response;
 			} else {
 				$recordArray = $proposalJSON->records[0];
 				if ($source == 'UpdateFun') {
@@ -186,7 +186,7 @@ class ProposalSugarClient extends SugarClient
 				return json_encode($response);
 			} else {
 				$response = $this->UpdateRecordException();
-				return json_encode($response);
+				return $response;
 			}
 			 
 		}	
