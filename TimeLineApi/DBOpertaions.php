@@ -31,6 +31,24 @@ trait DBOpertaions{
 		}
 		return $data;
 	}
+	
+	/**
+	*	@Connect TO DynamoDB  
+	*/
+	public function connectDB()
+	{
+		global $config_cstm;
+		
+		$sdk = new Aws\Sdk([
+		    'endpoint'   => 'http://localhost:8000',
+			'region'   => $config_cstm['DBregion'],
+			'version'  => $config_cstm['DBVersion']
+		]);
+
+		$dynamodb = $sdk->createDynamoDb();
+		return $dynamodb;
+	}
+
 
 	/**
 	* @param $username
