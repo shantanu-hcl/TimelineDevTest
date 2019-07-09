@@ -81,7 +81,7 @@ trait DBOpertaions{
 					"status" => "Fail",
 					"msg" => "Unable to get tokens!"
 				);
-				return $response;
+				return json_encode($response);
 			}
 
 		} catch (DynamoDbException $e) {
@@ -90,7 +90,7 @@ trait DBOpertaions{
 				"msg" => "Unable to get tokens!"
 				);
 			//echo $e->getMessage() . "\n";
-			return $response;
+			return json_encode($response);
 		}
 	}
 	
@@ -134,7 +134,6 @@ trait DBOpertaions{
 					"status" => "Fail",
 					"msg" => "Connection refused"
 				);
-				return $response;
 			}
 			
 		} catch (DynamoDbException $e) {
