@@ -12,20 +12,24 @@ use Aws\DynamoDb\Marshaler;
 
 trait DBOpertaions{
    
-	/**
-	*	@Connect TO DynamoDB  
-	*/
-	public function connectDB()
+	public function __construct()
 	{
-		global $config_cstm;
-		
-		$sdk = new Aws\Sdk([
-			'region'   => $config_cstm['DBregion'],
-			'version'  => $config_cstm['DBVersion']
-		]);
-
-		$dynamodb = $sdk->createDynamoDb();
-		return $dynamodb;
+	
+	}
+	
+	// Convert Object To array--
+	public function object_to_array($data)
+	{
+		if (is_array($data) || is_object($data))
+		{
+			$result = array();
+			foreach ($data as $key => $value)
+			{
+				$result[$key] = $this->object_to_array($value);
+			}
+			return $result;
+		}
+		return $data;
 	}
 
 	/**
@@ -51,7 +55,17 @@ trait DBOpertaions{
 
 		try {
 			$result = $dynamodb->getItem($params);
-			return $result;
+			$response1 = $this->object_to_array($result);
+			$statusCode =  $response1['@metadata']['statusCode'];
+			if ($statusCode == '200') {
+				return $result;
+			} else {
+				$response = array(
+					"status" => "Fail",
+					"msg" => "Unable to get tokens!"
+				);
+				return $response;
+			}
 
 		} catch (DynamoDbException $e) {
 			$response = array(
@@ -93,9 +107,18 @@ trait DBOpertaions{
 
 		try {
 			$result = $dynamodb->putItem($params);
-			$response = array(
-					"status" => "Success",
-					);
+			$response1 = $this->object_to_array($result);
+			if ($response1 == '200') {
+				$response = array(
+						"status" => "Success",
+						);
+			} else {
+				$response = array(
+					"status" => "Fail",
+					"msg" => "Connection refused"
+				);
+				return $response;
+			}
 			
 		} catch (DynamoDbException $e) {
 			//echo "Unable to add item:\n";
