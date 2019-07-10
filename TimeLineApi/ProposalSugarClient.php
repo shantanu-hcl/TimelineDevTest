@@ -6,9 +6,9 @@
 # This class is the class for Searching Proposal and update the proposal details in CRM 
 */
 
-require_once('SugarClient.php');
-require_once('Curl.php');
-require_once('SugarClientException.php');
+require_once 'SugarClient.php';
+require_once 'Curl.php';
+require_once 'SugarClientException.php';
 
 class ProposalSugarClient extends SugarClient 
 {
@@ -19,7 +19,6 @@ class ProposalSugarClient extends SugarClient
 	{
 		parent::__construct();
 	}
-	
 	/*
 	* @param $action
 	* @return array(refreshToken, httpHeader=>array(Content-Type,oauth-token))
@@ -112,39 +111,43 @@ class ProposalSugarClient extends SugarClient
 			$proposalResponse = $this->curlCall($proposal_url, $httpHeader, $filter_arguments, $method);
 			$proposalJSON = json_decode($proposalResponse);
 			
-			if (isset($proposalJSON->error) && $proposalJSON->error_message == 'The access token provided is invalid.') {
-				$authRefresh = $this->__refresh_token($refreshToken,$username);
-				//--- Recursive call---
-				return ($this->findProposalByMaconomyNumber($maconomyNo,'webPage'));
-				//---END----	
-			} elseif(empty($proposalJSON->records)) {
+			if(!isset($proposalJSON->curlStatus)) {
 				
-				$response = $this->FetchRecordException();	
-				return $response;
-			} else {
-				$recordArray = $proposalJSON->records[0];
-				if ($source == 'UpdateFun') {
-					return $recordArray;
-				} elseif ($source == 'webPage') {
-					$proposalDetailsArray = array(
-							"APIStatus" => "APISUCESS",
-							"id" => $recordArray->id,
-							"name" => $recordArray->name,
-							"date_modified" => $recordArray->date_modified,
-							"maconomy_job_c" => $recordArray->maconomy_job_c,
-							"proposalNO" => $recordArray->proposal_id_c,
-							"accountName" => $recordArray->accounts_ls010_proposals_1_name,
-							"startDate" => $recordArray->project_start_date_c,
-							"closeDate" => $recordArray->project_close_date_c,
-							"estimatedCloseDate" => $recordArray->estimated_close_date_c,
-							"status" => $recordArray->status_c,
-							"maconomyStatus" => $recordArray->maconomy_status_c
-						);
-					return json_encode($proposalDetailsArray);
+				if (isset($proposalJSON->error) && $proposalJSON->error_message == 'The access token provided is invalid.') {
+					$authRefresh = $this->__refresh_token($refreshToken,$username);
+					//--- Recursive call---
+					return ($this->findProposalByMaconomyNumber($maconomyNo,'webPage'));
+					//---END----	
+				} elseif(empty($proposalJSON->records)) {
+					$response = $this->FetchRecordException();	
+					return $response;
+				} else {
+					$recordArray = $proposalJSON->records[0];
+					if ($source == 'UpdateFun') {
+						return $recordArray;
+					} elseif ($source == 'webPage') {
+						$proposalDetailsArray = array(
+								"APIStatus" => "APISUCESS",
+								"id" => $recordArray->id,
+								"name" => $recordArray->name,
+								"date_modified" => $recordArray->date_modified,
+								"maconomy_job_c" => $recordArray->maconomy_job_c,
+								"proposalNO" => $recordArray->proposal_id_c,
+								"accountName" => $recordArray->accounts_ls010_proposals_1_name,
+								"startDate" => $recordArray->project_start_date_c,
+								"closeDate" => $recordArray->project_close_date_c,
+								"estimatedCloseDate" => $recordArray->estimated_close_date_c,
+								"status" => $recordArray->status_c,
+								"maconomyStatus" => $recordArray->maconomy_status_c
+							);
+						return json_encode($proposalDetailsArray);
+					}
 				}
+			} else {
+				$response = $this->SugarException();
+				return $response;
 			}
 		}
-		
 	}
 	
 	/*
@@ -178,14 +181,20 @@ class ProposalSugarClient extends SugarClient
 			$httpHeader = $httpHeaderResponseUpArr->httpHeader;
 			$proposalResponse = $this->curlCall($proposal_url, $httpHeader, $proposalDetails, $method);
 			$proposalJSON = json_decode($proposalResponse);
-			if (!empty($proposalJSON->id)) {
-				$response = array(
-					"status" => "Success",
-					"msg" => "Proposal updated successfully ."
-					);
-				return json_encode($response);
+			
+			if(!isset($proposalJSON->curlStatus)) {
+				if (!empty($proposalJSON->id)) {
+					$response = array(
+						"status" => "Success",
+						"msg" => "Proposal updated successfully ."
+						);
+					return json_encode($response);
+				} else {
+					$response = $this->UpdateRecordException();
+					return $response;
+				}
 			} else {
-				$response = $this->UpdateRecordException();
+				$response = $this->SugarException();
 				return $response;
 			}
 			 
