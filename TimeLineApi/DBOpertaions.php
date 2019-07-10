@@ -6,12 +6,32 @@
 */
 
 require_once('config.php');
-require_once "..\vendor\autoload.php";
+require_once "..\\vendor\autoload.php";
 use Aws\DynamoDb\Exception\DynamoDbException;
 use Aws\DynamoDb\Marshaler;
 
 trait DBOpertaions{
    
+	public function __construct()
+	{
+	
+	}
+	
+	// Convert Object To array--
+	public function object_to_array($data)
+	{
+		if (is_array($data) || is_object($data))
+		{
+			$result = array();
+			foreach ($data as $key => $value)
+			{
+				$result[$key] = $this->object_to_array($value);
+			}
+			return $result;
+		}
+		return $data;
+	}
+	
 	/**
 	*	@Connect TO DynamoDB  
 	*/
@@ -27,6 +47,7 @@ trait DBOpertaions{
 		$dynamodb = $sdk->createDynamoDb();
 		return $dynamodb;
 	}
+
 
 	/**
 	* @param $username
@@ -51,7 +72,17 @@ trait DBOpertaions{
 
 		try {
 			$result = $dynamodb->getItem($params);
-			return $result;
+			$response1 = $this->object_to_array($result);
+			$statusCode =  $response1['@metadata']['statusCode'];
+			if ($statusCode == '200') {
+				return $result;
+			} else {
+				$response = array(
+					"status" => "Fail",
+					"msg" => "Unable to get tokens!"
+				);
+				return json_encode($response);
+			}
 
 		} catch (DynamoDbException $e) {
 			$response = array(
@@ -59,7 +90,7 @@ trait DBOpertaions{
 				"msg" => "Unable to get tokens!"
 				);
 			//echo $e->getMessage() . "\n";
-			return $response;
+			return json_encode($response);
 		}
 	}
 	
@@ -93,9 +124,17 @@ trait DBOpertaions{
 
 		try {
 			$result = $dynamodb->putItem($params);
-			$response = array(
-					"status" => "Success",
-					);
+			$response1 = $this->object_to_array($result);
+			if ($response1['@metadata']['statusCode'] == '200') {
+				$response = array(
+						"status" => "Success",
+						);
+			} else {
+				$response = array(
+					"status" => "Fail",
+					"msg" => "Connection refused"
+				);
+			}
 			
 		} catch (DynamoDbException $e) {
 			//echo "Unable to add item:\n";

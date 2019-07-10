@@ -87,13 +87,13 @@ class SugarClient
 				return json_encode($responseArray);
 			} elseif ($dbResponeArr->status == 'Fail') {
 				$response = $this->DBException();	
-				return json_encode($response);
+				return $response;
 			}
 			//------End------			
 			
 		} else {
 			$response = $this->authException();	
-			return json_encode($response);
+			return $response;
 		}
 	}
 		
@@ -127,7 +127,7 @@ class SugarClient
 				
 				$password = $config_cstm['sugar_hash'];
 				$getAccessTokenFromLogin = $this->authenticate($username, $password);
-				return json_encode($getAccessTokenFromLogin);	
+				return $getAccessTokenFromLogin;	
 			}
 			elseif (isset($curl_response_array->access_token)) {
 				$access_token = $curl_response_array->access_token;
@@ -148,12 +148,12 @@ class SugarClient
 					return json_encode($responseArray);
 				} elseif ($dbResponeArr->status == 'Fail') {
 					$response = $this->DBException();	
-					return json_encode($response);
+					return $response;
 				}
 			//------End------	
 			} else {
 				$response = $this->SugarException();
-				return json_encode($response);
+				return $response;
 			}	
 		} 
 	}	
