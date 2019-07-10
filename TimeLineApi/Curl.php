@@ -2,44 +2,148 @@
 /*
 # Author: Sameeksha Agrawal
 # Date Created:  04/07/2019
-# This class is the base class to make connection with curl 
+# This class is the opertaion class performed on DynamoDB
 */
+
 require_once 'config.php';
-require_once 'DBOpertaions.php';
+require_once "..\\vendor\autoload.php"; 
+use Aws\DynamoDb\Exception\DynamoDbException;
+use Aws\DynamoDb\Marshaler;
 
-trait Curl
-{
-	/**
-	* Make Curl Connect
-	**/
-	public function curlCall($curl_url , $http_header, $payload, $method)
-	{ 
-		$auth_curl_request = curl_init();
-		if ($method == "POST" || $method == "PUT") {
-			$json__payload = json_encode($payload);
-			if($method == "PUT") {
-				curl_setopt($auth_curl_request, CURLOPT_CUSTOMREQUEST, "PUT");
+trait DBOpertaions{
+    
+	// Convert Object To array--
+	public function object_to_array($data)
+	{
+		if (is_array($data) || is_object($data))
+		{
+			$result = array();
+			foreach ($data as $key => $value)
+			{
+				$result[$key] = $this->object_to_array($value);
 			}
-			curl_setopt($auth_curl_request, CURLOPT_POSTFIELDS, $json__payload);
+			return $result;
 		}
-		curl_setopt($auth_curl_request, CURLOPT_URL, $curl_url);
-		curl_setopt($auth_curl_request, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_0);
-		curl_setopt($auth_curl_request, CURLOPT_HEADER, false);
-		curl_setopt($auth_curl_request, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_setopt($auth_curl_request, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($auth_curl_request, CURLOPT_FOLLOWLOCATION, 0);
-		curl_setopt($auth_curl_request, CURLOPT_HTTPHEADER, $http_header);
-
-		//execute request
-		$curl_response = curl_exec($auth_curl_request);
-		
-		if (curl_errno($auth_curl_request)) {
-			$response = array(
-					"curlStatus" => "Fail",
-					"msg" => "Something went wrong. Please try again !"
-					);
-			$curl_response = json_encode($response);
-		}
-		return $curl_response;
+		return $data;
 	}
+	
+	/**
+	*	@Connect TO DynamoDB  
+	*/
+	public function connectDB()
+	{
+		global $config_cstm;
+		
+		$sdk = new Aws\Sdk([
+		    'endpoint'   => 'http://localhost:8000',
+			'region'   => $config_cstm['DBregion'],
+			'version'  => $config_cstm['DBVersion']
+		]);
+		$dynamodb = $sdk->createDynamoDb();
+		return $dynamodb;
+	}
+
+	/**
+	* @param $username
+	* @return array of tokens
+	*/
+	public function getTokens($username)
+	{
+		global $config_cstm;	
+		$tableName = $config_cstm['table'];
+		$dynamodb = $this->connectDB();
+		$marshaler = new Marshaler();
+		$key = $marshaler->marshalJson('
+			{
+				"username": "' . $username . '"	
+			}
+		');
+
+		$params = [
+			'TableName' => $tableName,
+			'Key' => $key
+		];
+
+		try {
+			$result = $dynamodb->getItem($params);
+	
+			$response1 = $this->object_to_array($result);
+			$statusCode =  $response1['@metadata']['statusCode'];
+			if ($statusCode == '200') {
+				return $result;
+			} else {
+				$response = array(
+					"status" => "Fail",
+					"msg" => "Unable to get tokens!"
+				);
+				return json_encode($response);
+			
+			}
+
+		} catch (DynamoDbException $e) {
+			$response = array(
+				"status" => "Fail",
+				"msg" => "Unable to get tokens!"
+				);
+			return json_encode($response);
+		}
+	}
+	
+	/**
+	* @param $username, $access_token, $refresh_token, $download_token
+	* @return array($status)
+	*/
+
+	public function putTokens($username,$access_token,$refresh_token,$download_token,$current_dateTime)
+	{
+		global $config_cstm;
+		$tableName = $config_cstm['table'];
+		
+		$dynamodb = $this->connectDB();
+		$marshaler = new Marshaler();
+		$item = $marshaler->marshalJson('
+			{
+				 "username": "' . $username . '",
+				"access_token": "' .$access_token .'",
+				"refresh_token": "' . $refresh_token . '",
+				"download_token": "' . $download_token . '",
+				"access_token_time": "' . $current_dateTime . '",
+				"refresh_token_time": "' .  $current_dateTime . '"
+			}
+		');
+
+		$params = [
+			'TableName' => $tableName,
+			'Item' => $item
+		];
+
+		try {
+			$result = $dynamodb->putItem($params);
+			$response1 = $this->object_to_array($result);
+			$statusCode =  $response1['@metadata']['statusCode'];
+			if ($statusCode == '200') {
+				$response = array(
+						"status" => "Success",
+						);
+			} else {
+				$response = array(
+					"status" => "Fail",
+					"msg" => "Connection refused"
+				);
+				
+			}
+			
+		} catch (DynamoDbException $e) {
+			$response = array(
+					"status" => "Fail",
+					"msg" => "Connection refused"
+					);
+		}
+		return json_encode($response);
+	}
+	
+
 }
+
+
+?>
