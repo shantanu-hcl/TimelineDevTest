@@ -11,12 +11,7 @@ use Aws\DynamoDb\Exception\DynamoDbException;
 use Aws\DynamoDb\Marshaler;
 
 trait DBOpertaions{
-   
-	public function __construct()
-	{
-	
-	}
-	
+    
 	// Convert Object To array--
 	public function object_to_array($data)
 	{
@@ -40,14 +35,13 @@ trait DBOpertaions{
 		global $config_cstm;
 		
 		$sdk = new Aws\Sdk([
+		    'endpoint'   => 'http://localhost:8000',
 			'region'   => $config_cstm['DBregion'],
 			'version'  => $config_cstm['DBVersion']
 		]);
-
 		$dynamodb = $sdk->createDynamoDb();
 		return $dynamodb;
 	}
-
 
 	/**
 	* @param $username
@@ -61,7 +55,7 @@ trait DBOpertaions{
 		$marshaler = new Marshaler();
 		$key = $marshaler->marshalJson('
 			{
-				"username": "' . $username . '"
+				"username": "' . $username . '"	
 			}
 		');
 
@@ -72,6 +66,7 @@ trait DBOpertaions{
 
 		try {
 			$result = $dynamodb->getItem($params);
+	
 			$response1 = $this->object_to_array($result);
 			$statusCode =  $response1['@metadata']['statusCode'];
 			if ($statusCode == '200') {
@@ -82,6 +77,7 @@ trait DBOpertaions{
 					"msg" => "Unable to get tokens!"
 				);
 				return json_encode($response);
+			
 			}
 
 		} catch (DynamoDbException $e) {
@@ -89,7 +85,6 @@ trait DBOpertaions{
 				"status" => "Fail",
 				"msg" => "Unable to get tokens!"
 				);
-			//echo $e->getMessage() . "\n";
 			return json_encode($response);
 		}
 	}
@@ -125,11 +120,8 @@ trait DBOpertaions{
 		try {
 			$result = $dynamodb->putItem($params);
 			$response1 = $this->object_to_array($result);
-<<<<<<< HEAD
-			if ($response1['@metadata']['statusCode'] == '200') {
-=======
-			if ($response1 == '200') {
->>>>>>> 79e816d6b565306a95a4b766be9282a4eea3cdb8
+			$statusCode =  $response1['@metadata']['statusCode'];
+			if ($statusCode == '200') {
 				$response = array(
 						"status" => "Success",
 						);
@@ -138,11 +130,10 @@ trait DBOpertaions{
 					"status" => "Fail",
 					"msg" => "Connection refused"
 				);
+				
 			}
 			
 		} catch (DynamoDbException $e) {
-			//echo "Unable to add item:\n";
-			//echo $e->getMessage() . "\n";
 			$response = array(
 					"status" => "Fail",
 					"msg" => "Connection refused"
