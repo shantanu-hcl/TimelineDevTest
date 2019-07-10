@@ -2,7 +2,7 @@
 /**
 *	All Sugar Client Exception should be writtien in here
 */
-trait Unauthenticate_SugarClientException //extends Exceptions
+trait Unauthenticate_SugarClientException 
 {
 	/*
 	* @return authentication exceptions
@@ -43,7 +43,7 @@ trait Unauthenticate_SugarClientException //extends Exceptions
 	public function FetchRecordException(){
 		$response = array(
 					"status" => "Fail",
-					"msg" => "No Proposal Found"
+					"msg" => "No Proposal Found!"
 					);
 		return json_encode($response);
 	}
