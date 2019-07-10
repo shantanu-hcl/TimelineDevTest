@@ -35,8 +35,7 @@ trait DBOpertaions{
 		global $config_cstm;
 		
 		$sdk = new Aws\Sdk([
-		    'endpoint'   => 'http://localhost:8000',
-			'region'   => $config_cstm['DBregion'],
+		   	'region'   => $config_cstm['DBregion'],
 			'version'  => $config_cstm['DBVersion']
 		]);
 		$dynamodb = $sdk->createDynamoDb();
