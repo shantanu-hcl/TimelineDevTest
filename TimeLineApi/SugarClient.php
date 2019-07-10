@@ -4,10 +4,10 @@
 # Date Created:  18/06/2019
 # This class is the base class for client integrated with sugar 
 */
-require_once('config.php');
-require_once('DBOpertaions.php');
-require_once('Curl.php');
-require_once('SugarClientException.php');
+require_once 'config.php';
+require_once 'DBOpertaions.php';
+require_once 'Curl.php';
+require_once 'SugarClientException.php';
 
 class SugarClient
 {
@@ -69,31 +69,37 @@ class SugarClient
 		$method = "POST";
 		$curl_response = $this->curlCall($auth_url, $httpHeader, $oauth2_payload, $method);
 		$curl_response_array = json_decode($curl_response);
-		if (isset($curl_response_array->access_token)) {
-			$access_token = $curl_response_array->access_token;
-			$refresh_token = $curl_response_array->refresh_token;
-			$download_token =$curl_response_array->download_token;
-			$responseArray = array(
-				"status" => "Success",
-				"access_token" => $access_token,
-				"refresh_token" => $refresh_token,
-				"download_token" => $download_token );
+		
+		if(!isset($proposalJSON->curlStatus)) {
+			if (isset($curl_response_array->access_token)) {
+				$access_token = $curl_response_array->access_token;
+				$refresh_token = $curl_response_array->refresh_token;
+				$download_token =$curl_response_array->download_token;
+				$responseArray = array(
+					"status" => "Success",
+					"access_token" => $access_token,
+					"refresh_token" => $refresh_token,
+					"download_token" => $download_token );
+					
+				//---put the All Token to dynamodb
+				$current_dateTime = date('Y-m-d h:m:s');
+				$dbRespone = $this->putTokens($username,$access_token,$refresh_token,$download_token,$current_dateTime);
+				$dbResponeArr = json_decode($dbRespone);
+				if($dbResponeArr->status == 'Success') {
+					return json_encode($responseArray);
+				} elseif ($dbResponeArr->status == 'Fail') {
+					$response = $this->DBException();	
+					return $response;
+				}
+				//------End------			
 				
-			//---put the All Token to dynamodb
-			$current_dateTime = date('Y-m-d h:m:s');
-			$dbRespone = $this->putTokens($username,$access_token,$refresh_token,$download_token,$current_dateTime);
-			$dbResponeArr = json_decode($dbRespone);
-			if($dbResponeArr->status == 'Success') {
-				return json_encode($responseArray);
-			} elseif ($dbResponeArr->status == 'Fail') {
-				$response = $this->DBException();	
+			} else {
+				$response = $this->authException();	
 				return $response;
 			}
-			//------End------			
-			
 		} else {
-			$response = $this->authException();	
-			return $response;
+				$response = $this->SugarException();
+				return $response;
 		}
 	}
 		
@@ -122,39 +128,42 @@ class SugarClient
 			$auth_url = $curl_url . "/oauth2/token";
 			$curl_response = $this->curlCall($auth_url, $httpHeader, $oauth2_payload, $method);
 			$curl_response_array = json_decode($curl_response);
-		
-			if (isset($curl_response_array->error) && $curl_response_array->error_message == 'Invalid refresh token') {
-				
-				$password = $config_cstm['sugar_hash'];
-				$getAccessTokenFromLogin = $this->authenticate($username, $password);
-				return $getAccessTokenFromLogin;	
-			}
-			elseif (isset($curl_response_array->access_token)) {
-				$access_token = $curl_response_array->access_token;
-				$refresh_token = $curl_response_array->refresh_token;
-				$download_token =$curl_response_array->download_token;
-				$responseArray = array(
-					"status" => "Success",
-					"access_token" => $access_token,
-					"refresh_token" => $refresh_token,
-					"download_token" => $download_token );
+			if(!isset($proposalJSON->curlStatus)) {
+				if (isset($curl_response_array->error) && $curl_response_array->error_message == 'Invalid refresh token') {
+					
+					$password = $config_cstm['sugar_hash'];
+					$getAccessTokenFromLogin = $this->authenticate($username, $password);
+					return $getAccessTokenFromLogin;	
+				} elseif (isset($curl_response_array->access_token)) {
+					$access_token = $curl_response_array->access_token;
+					$refresh_token = $curl_response_array->refresh_token;
+					$download_token =$curl_response_array->download_token;
+					$responseArray = array(
+						"status" => "Success",
+						"access_token" => $access_token,
+						"refresh_token" => $refresh_token,
+						"download_token" => $download_token );
 
-				//---put the All Token to dynamodb
-				$current_dateTime = date('Y-m-d h:m:s');
-				$dbRespone = $this->putTokens($username,$access_token,$refresh_token,$download_token,$current_dateTime);
-				$dbResponeArr = json_decode($dbRespone);
-			
-				if($dbResponeArr->status == 'Success') {
-					return json_encode($responseArray);
-				} elseif ($dbResponeArr->status == 'Fail') {
-					$response = $this->DBException();	
+					//---put the All Token to dynamodb
+					$current_dateTime = date('Y-m-d h:m:s');
+					$dbRespone = $this->putTokens($username,$access_token,$refresh_token,$download_token,$current_dateTime);
+					$dbResponeArr = json_decode($dbRespone);
+				
+					if($dbResponeArr->status == 'Success') {
+						return json_encode($responseArray);
+					} elseif ($dbResponeArr->status == 'Fail') {
+						$response = $this->DBException();	
+						return $response;
+					}
+				//------End------	
+				} else {
+					$response = $this->SugarException();
 					return $response;
 				}
-			//------End------	
 			} else {
 				$response = $this->SugarException();
 				return $response;
-			}	
+			}
 		} 
 	}	
 }
