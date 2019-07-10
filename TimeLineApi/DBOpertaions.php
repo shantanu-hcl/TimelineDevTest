@@ -125,7 +125,11 @@ trait DBOpertaions{
 		try {
 			$result = $dynamodb->putItem($params);
 			$response1 = $this->object_to_array($result);
+<<<<<<< HEAD
 			if ($response1['@metadata']['statusCode'] == '200') {
+=======
+			if ($response1 == '200') {
+>>>>>>> 79e816d6b565306a95a4b766be9282a4eea3cdb8
 				$response = array(
 						"status" => "Success",
 						);
