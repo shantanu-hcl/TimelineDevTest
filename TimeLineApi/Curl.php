@@ -4,15 +4,14 @@
 # Date Created:  04/07/2019
 # This class is the base class to make connection with curl 
 */
-require_once('config.php');
-require_once('DBOpertaions.php');
+require_once 'config.php';
+require_once 'DBOpertaions.php';
 
 trait Curl
 {
 	/**
 	* Make Curl Connect
 	**/
-	
 	public function curlCall($curl_url , $http_header, $payload, $method)
 	{ 
 		$auth_curl_request = curl_init();
@@ -33,8 +32,14 @@ trait Curl
 
 		//execute request
 		$curl_response = curl_exec($auth_curl_request);
-		//print_R($curl_response);
+		
+		if (curl_errno($auth_curl_request)) {
+			$response = array(
+					"curlStatus" => "Fail",
+					"msg" => "Something went wrong. Please try again !"
+					);
+			$curl_response = json_encode($response);
+		}
 		return $curl_response;
 	}
-
 }
